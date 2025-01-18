@@ -29,7 +29,7 @@ export const fn = main => {
 		locked = true
 		return key
 	}
-
+	
 	function unlock(key_) {
 		
 		if (key_ = key) return {
