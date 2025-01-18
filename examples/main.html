@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0">
+<title>composable functions</title>
+<link rel="icon" href="data:image/x-icon;base64,">
+<script type="module">
+	
+	import { add } from '../source/add.js'
+	
+	(() => {
+		
+		console.log(`final result: ${add(1, 1)}`)
+		console.log(`final result: ${add(1)}`)
+		
+		let fn = add
+		if (! fn.key || ! fn.unlock) return
+		let key = fn.key()
+		const { push } = fn.unlock(key)
+		push((args, next) => {
+			return true ? next() : next() + 1
+		})
+		push((args, next) => {
+			const result = next()
+			if (args[0] + args[1] != result) throw Error('the output is incorrect')
+			return result
+		})
+		push((args, next) => {
+			if (args.length < 2) throw Error('the add function requires at least 2 arguments')
+			return next()
+		})
+		console.log(`final result: ${add(1, 1)}`)
+		console.log(`final result: ${add(1)}`)
+		fn.reset(key)
+		
+	})()
+	
+</script>
+</head>
+<body>
+</body>
+</html>
