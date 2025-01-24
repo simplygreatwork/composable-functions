@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0">
-<title>composable functions</title>
+<title>composable functions : tax</title>
 <link rel="icon" href="data:image/x-icon;base64,">
 <script type="module">
 	
@@ -15,7 +15,7 @@
 		const tax = fn(amount => amount * 0.0825)
 		console.log(`tax: ${tax(100)}`)
 		const fn_ = tax
-		if (! fn_.key) 
+		if (! fn_.key) return
 		const key = fn_.key()
 		const { set_at } = fn_.unlock(key)
 		set_at(amount => amount * 0.0925, 0)
